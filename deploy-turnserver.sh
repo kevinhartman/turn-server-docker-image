@@ -14,6 +14,7 @@ realm=$3
 server-name=$3
 lt-cred-mech
 userdb=/var/lib/turn/turndb
+max-allocate-timeout=480
 # use real-valid certificate/privatekey files
 cert=/etc/ssl/turn_server_cert.pem
 pkey=/etc/ssl/turn_server_pkey.pem
@@ -23,6 +24,6 @@ no-stdout-log"  | tee /etc/turnserver.conf
 
 turnadmin -a -u $1 -p $2 -r $3
 
-turnserver
+turnserver --channel-lifetime=1200 --permission-lifetime=1200
 
 echo "TURN server running. IP: "$externalIp" Username: $1, password: $2"
